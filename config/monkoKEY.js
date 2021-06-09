@@ -1,0 +1,1 @@
+module.exports = "mongodb+srv://admin:vinodsilva@1999japura@kota-urlshortener.e5ozg.mongodb.net/test";
