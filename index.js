@@ -46,6 +46,6 @@ app.use(function (req, res, next) {
 app.use(require('./controller/routes.js'));
 
 
-const PORT = process.env.PORT || 8000;
+const PORT =8000;
 
 app.listen(PORT, () => console.log("Server Started At " + PORT));
