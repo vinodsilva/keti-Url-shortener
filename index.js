@@ -46,8 +46,6 @@ app.use(function (req, res, next) {
 app.use(require('./controller/routes.js'));
 
 
-const hostname = 'localhost';
-//const port = 3000;
-const PORT = 3000;
+const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, hostname);
+app.listen(PORT, () => console.log("Server Started At " + PORT));
