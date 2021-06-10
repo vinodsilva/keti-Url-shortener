@@ -48,6 +48,6 @@ app.use(require('./controller/routes.js'));
 
 const hostname = 'localhost';
 //const port = 3000;
-const PORT = 8000;
+const PORT = 3000;
 
 app.listen(PORT, hostname);
