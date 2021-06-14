@@ -146,7 +146,7 @@ router.post('/create', checkAuth, (req, res) => {
 
 router.use(userRoutes);
 
-router.get('/:slug?',async (req, res) => {
+router.post('/:slug?',async (req, res) => {
     if (req.params.slug != undefined) {
         var data = await urls.findOne({ slug: req.params.slug });
         if (data) {
@@ -164,7 +164,7 @@ router.get('/:slug?',async (req, res) => {
 
 });
 
-router.post('/:slug?', async (req, res) => {
+router.get('/:slug?', async (req, res) => {
 const { password } = req.body;
 if (!password ) {
     res.render("veiwUrl", { err: "All Fields Required !", csrfToken: req.csrfToken() });
