@@ -150,7 +150,7 @@ router.get('/:slug?',async (req, res) => {
     if (req.params.slug != undefined) {
         var data = await urls.findOne({ slug: req.params.slug });
         if (data) {
-            res.render("veiwUrl", {data, csrfToken: req.csrfToken() });
+            res.render("veiwUrl", { csrfToken: req.csrfToken() });
      }
 
 
@@ -164,13 +164,13 @@ router.get('/:slug?',async (req, res) => {
 
 });
 
-router.post('/slug', async (req, res) => {
+router.post('/:slug?', async (req, res) => {
 const { password } = req.body;
 if (!password ) {
     res.render("veiwUrl", { err: "All Fields Required !", csrfToken: req.csrfToken() });
 } 
  else {
-    var data = await urls.findOne({ slug: req.params.slug });
+   // var data = await urls.findOne({ slug: req.params.slug });
     if (data) {
                 data.visits = data.visits + 1;
     
