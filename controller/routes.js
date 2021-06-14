@@ -106,9 +106,9 @@ router.get('/dashboard', checkAuth, (req, res) => {
 
 
 router.post('/create', checkAuth, (req, res) => {
-    const { original, short } = req.body;
+    const { original, short ,password} = req.body;
 
-    if (!original || !short) {
+    if (!original || !short ||!password) {
 
         res.render('dashboard', { verified: req.user.isVerified, logged: true, csrfToken: req.csrfToken(), err: "Empty Fields !" });
     } else {
@@ -118,12 +118,25 @@ router.post('/create', checkAuth, (req, res) => {
                 res.render('dashboard', { verified: req.user.isVerified, logged: true, csrfToken: req.csrfToken(), err: "Try Different Short Url, This exists !" });
 
             } else {
-                urls({
-                    originalUrl: original,
-                    slug: short,
-                    owned: req.user.email,
-                }).save((err) => {
-                    res.redirect('/dashboard');
+                bcryptjs.genSalt(12, (err, salt) => {
+                    if (err) throw err;
+                    // hash the password
+                    bcryptjs.hash(password, salt, (err, hash) => {
+                        if (err) throw err;
+                        // save user in db
+                        user({
+                            originalUrl: original,
+                            slug: short,
+                            owned: req.user.email,
+                            password:hash,
+                        }).save((err, data) => {
+                            if (err) throw err;
+                            // login the user
+                            // use req.login
+                            // redirect , if you don't want to login
+                            res.redirect('/dashboard');
+                        });
+                    })
                 });
             }
         })

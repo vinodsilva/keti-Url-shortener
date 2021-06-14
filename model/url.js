@@ -9,15 +9,22 @@ const urlSchema = new mongoose.Schema({
         type : String, 
         required : true,
     },
+
+    password : {
+        type : String,   
+    },
+    
     slug : {
         type : String,
         unique : true,
         required : true,
     },
+
     visits : {
         type : Number,
         default : 0,
     },
+    
     visitsFB : {
         type : Number,
         default : 0,
