@@ -205,7 +205,7 @@ if (!password ) {
 
 
 
-// });
+});
 
     
     // if (req.params.slug != undefined) {
