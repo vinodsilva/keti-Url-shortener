@@ -150,9 +150,8 @@ router.get('/:slug?',async (req, res) => {
     if (req.params.slug != undefined) {
         var data = await urls.findOne({ slug: req.params.slug });
         if (data) {
-            res.render("veiwUrl", {data, csrfToken: req.csrfToken() });
+            res.render("veiwUrl", {slug: req.params.slug, csrfToken: req.csrfToken() });
      }
-
 
     } else {
         if (req.isAuthenticated()) {
@@ -167,91 +166,40 @@ router.get('/:slug?',async (req, res) => {
 router.post('/slug', async (req, res) => {
 const { password } = req.body;
 if (!password ) {
-    res.render("veiwUrl", { err: "All Fields Required !", csrfToken: req.csrfToken() });
+    res.render("veiwUrl", { err: "Password is Required !" });
 } 
  else {
-    var data = await urls.findOne({ slug: req.params.slug });
-    if (data) {
-                data.visits = data.visits + 1;
+    // var data = await urls.findOne({ slug: req.params.slug });
+    // if (data) {
+    //             data.visits = data.visits + 1;
     
-                var ref = req.query.ref;
-                if (ref) {
-                    switch (ref) {
-                        case 'fb':
-                            data.visitsFB = data.visitsFB + 1;
-                            break;
-                        case 'ig':
-                            data.visitsIG = data.visitsIG + 1;
-                            break;
-                        case 'yt':
-                            data.visitsYT = data.visitsYT + 1;
-                            break;
-                    }
-                }
+    //             var ref = req.query.ref;
+    //             if (ref) {
+    //                 switch (ref) {
+    //                     case 'fb':
+    //                         data.visitsFB = data.visitsFB + 1;
+    //                         break;
+    //                     case 'ig':
+    //                         data.visitsIG = data.visitsIG + 1;
+    //                         break;
+    //                     case 'yt':
+    //                         data.visitsYT = data.visitsYT + 1;
+    //                         break;
+    //                 }
+    //             }
     
-                await data.save();
-               
-             res.redirect(data.originalUrl);
+    //             await data.save();
+                res.redirect("https://www.youtube.com/watch?v=ZPTpvaoRlaQ&ab_channel=DcreationsDcreations");
+         //    res.redirect(data.originalUrl);
             
-            } else {
-                if (req.isAuthenticated()) {
-                    res.render("index", { logged: true, err: true });
-                } else {
-                    res.render("index", { logged: false, err: true });
-                }
-    
-            }
-}
-
+            //} 
+        }
 
 
 });
 
     
-    // if (req.params.slug != undefined) {
-    //     var data = await urls.findOne({ slug: req.params.slug });
-    //     if (data) {
-    //         data.visits = data.visits + 1;
-
-    //         var ref = req.query.ref;
-    //         if (ref) {
-    //             switch (ref) {
-    //                 case 'fb':
-    //                     data.visitsFB = data.visitsFB + 1;
-    //                     break;
-    //                 case 'ig':
-    //                     data.visitsIG = data.visitsIG + 1;
-    //                     break;
-    //                 case 'yt':
-    //                     data.visitsYT = data.visitsYT + 1;
-    //                     break;
-    //             }
-    //         }
-
-    //         await data.save();
-           
-    //      res.redirect(data.originalUrl);
-        
-    //     } else {
-    //         if (req.isAuthenticated()) {
-    //             res.render("index", { logged: true, err: true });
-    //         } else {
-    //             res.render("index", { logged: false, err: true });
-    //         }
-
-    //     }
-
-
-    // } else {
-    //     if (req.isAuthenticated()) {
-    //         res.render("index", { logged: true });
-    //     } else {
-    //         res.render("index", { logged: false });
-    //     }
-    // }
-
-// });
-
+    
 
 
 module.exports = router;
