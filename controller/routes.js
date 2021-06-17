@@ -18,6 +18,9 @@ function checkAuth(req, res, next) {
     }
 }
 
+function checkSlug(_req,_res,_next){
+
+}
 
 router.get('/login', (req, res) => {
     res.render("login", { csrfToken: req.csrfToken() });
@@ -57,7 +60,7 @@ router.post('/signup', (req, res) => {
                             password: hash,
                             googleId: null,
                             provider: 'email',
-                        }).save((err, data) => {
+                        }).save((err, _data) => {
                             if (err) throw err;
                             // login the user
                             // use req.login
@@ -81,14 +84,14 @@ router.post('/login', (req, res, next) => {
 
 router.get('/logout', (req, res) => {
     req.logout();
-    req.session.destroy(function (err) {
+    req.session.destroy(function (_err) {
         res.redirect('/');
     });
 });
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email',] }));
 
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (_req, res) => {
     res.redirect('/dashboard');
 });
 
@@ -108,35 +111,23 @@ router.get('/dashboard', checkAuth, (req, res) => {
 router.post('/create', checkAuth, (req, res) => {
     const { original, short ,password} = req.body;
 
-    if (!original || !short ||!password) {
+    if (!original || !short || !password) {
 
-        res.render('dashboard', { verified: req.user.isVerified, logged: true, reset: true, csrfToken: req.csrfToken(), err: "Empty Fields !" });
+        res.render('dashboard', { verified: req.user.isVerified, logged: true, csrfToken: req.csrfToken(), err: "Empty Fields !" });
     } else {
         urls.findOne({ slug: short }, (err, data) => {
             if (err) throw err;
             if (data) {
-                res.render('dashboard', { verified: req.user.isVerified, logged: true, reset: true, csrfToken: req.csrfToken(), err: "Try Different Short Url, This exists !" });
+                res.render('dashboard', { verified: req.user.isVerified, logged: true, csrfToken: req.csrfToken(), err: "Try Different Short Url, This exists !" });
 
             } else {
-                bcryptjs.genSalt(12, (err, salt) => {
-                    if (err) throw err;
-                    // hash the password
-                    bcryptjs.hash(password, salt, (err, hash) => {
-                        if (err) throw err;
-                        // save user in db
-                        user({
-                            originalUrl: original,
-                            slug: short,
-                            owned: req.user.email,
-                            password:hash,
-                        }).save((err, data) => {
-                            if (err) throw err;
-                            // login the user
-                            // use req.login
-                            // redirect , if you don't want to login
-                            res.redirect('/dashboard');
-                        });
-                    })
+                urls({
+                    originalUrl: original,
+                    slug: short,
+                    owned: req.user.email,
+                    password: password
+                }).save((_err) => {
+                    res.redirect('/dashboard');
                 });
             }
         })
@@ -144,13 +135,31 @@ router.post('/create', checkAuth, (req, res) => {
 
 });
 
+
 router.use(userRoutes);
 
+
+function checkSlug(req, res, next) {
+        var data =urls.findOne({ slug: req.params.slug });
+        res.locals.data=data;
+        next();
+}
+
+
 router.get('/:slug?',async (req, res) => {
+
+ function checkSlug(req, res, next) {
+        var data =urls.findOne({ slug: req.params.slug });
+        res.locals.data=data;
+        next();
+}
     if (req.params.slug != undefined) {
         var data = await urls.findOne({ slug: req.params.slug });
+        res.locals.data=data;
+        console.log(res.locals.data);
+        
         if (data) {
-            res.render("veiwUrl", { reset: true ,csrfToken: req.csrfToken() });
+            res.render("veiwUrl", {csrfToken: req.csrfToken() });
      }else{
         if (req.isAuthenticated()) {
             res.render("index", { logged: true });
@@ -166,45 +175,134 @@ router.get('/:slug?',async (req, res) => {
             res.render("index", { logged: false });
         }
     }
+})
+router.post('/:slug?',checkSlug, async (req, res) => {
+    const { password} = req.body;
+   // const{data}=res.locals.data;
+    console.log(res.locals.data);
+
+ if (!password ) {
+    res.render("veiwUrl", { err: "Password is Required !" });
+} 
+ else {
+         if (data) {
+            data.visits = data.visits + 1;
+           var ref = req.query.ref;
+            if (ref) {
+                switch (ref) {
+                    case 'fb':
+                        data.visitsFB = data.visitsFB + 1;
+                        break;
+                    case 'ig':
+                        data.visitsIG = data.visitsIG + 1;
+                        break;
+                    case 'yt':
+                        data.visitsYT = data.visitsYT + 1;
+                        break;
+                }
+            }
+
+            await data.save();
+
+            res.redirect(data.originalUrl);
+        } else {
+            if (req.isAuthenticated()) {
+                res.render("index", { logged: true, err: true });
+            } else {
+                res.render("index", { logged: false, err: true });
+            }
+
+        }
+
+
+    } 
 
 });
 
+
+
+
+
+
+// router.get('/:slug?',async (req, res) => {
+//     var slug =req.params.slug;
+//     console.log(slug);
+//     if (req.params.slug != undefined) {
+//         var data = await urls.findOne({ slug: req.params.slug });
+//         if (data) {
+//             res.render("veiwUrl", { data:data, reset: true ,csrfToken: req.csrfToken() });
+//      }else{
+//         if (req.isAuthenticated()) {
+//             res.render("index", { logged: true });
+//         } else {
+//             res.render("index", { logged: false });
+//         } 
+//      }
+
+//     } else {
+//         if (req.isAuthenticated()) {
+//             res.render("index", { logged: true });
+//         } else {
+//             res.render("index", { logged: false });
+//         }
+//     }
+   
+
+// });
+
 // router.post('/:slug?', async (req, res) => {
-//     const { password } = req.body;
+//     const { password,data } = req.body;
+//     console.log(password);
+//     console.log(data);
 // if (!password ) {
 //     res.render("veiwUrl", { err: "Password is Required !" });
 // } 
 //  else {
-//     // var data = await urls.findOne({ slug: req.params.slug });
-//     // if (data) {
-//     //             data.visits = data.visits + 1;
-    
-//     //             var ref = req.query.ref;
-//     //             if (ref) {
-//     //                 switch (ref) {
-//     //                     case 'fb':
-//     //                         data.visitsFB = data.visitsFB + 1;
-//     //                         break;
-//     //                     case 'ig':
-//     //                         data.visitsIG = data.visitsIG + 1;
-//     //                         break;
-//     //                     case 'yt':
-//     //                         data.visitsYT = data.visitsYT + 1;
-//     //                         break;
-//     //                 }
-//     //             }
-    
-//     //             await data.save();
-//               //  res.redirect("https://www.youtube.com/watch?v=ZPTpvaoRlaQ&ab_channel=DcreationsDcreations");
-//          //    res.redirect(data.originalUrl);
-            
-//             //} 
+//     if (req.params.slug != undefined) {
+//        // var data = await urls.findOne({ slug: req.params.slug });
+//         if (data) {
+//             data.visits = data.visits + 1;
+
+//             var ref = req.query.ref;
+//             if (ref) {
+//                 switch (ref) {
+//                     case 'fb':
+//                         data.visitsFB = data.visitsFB + 1;
+//                         break;
+//                     case 'ig':
+//                         data.visitsIG = data.visitsIG + 1;
+//                         break;
+//                     case 'yt':
+//                         data.visitsYT = data.visitsYT + 1;
+//                         break;
+//                 }
+//             }
+
+//             await data.save();
+
+//             res.redirect(data.originalUrl);
+//         } else {
+//             if (req.isAuthenticated()) {
+//                 res.render("index", { logged: true, err: true });
+//             } else {
+//                 res.render("index", { logged: false, err: true });
+//             }
+
 //         }
 
 
+//     } else {
+//         if (req.isAuthenticated()) {
+//             res.render("index", { logged: true });
+//         } else {
+//             res.render("index", { logged: false });
+//         }
+//     }
+//         }
+
 // });
 
-    
+   
     
 
 
