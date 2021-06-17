@@ -138,21 +138,7 @@ router.post('/create', checkAuth, (req, res) => {
 
 router.use(userRoutes);
 
-
-function checkSlug(req, res, next) {
-        var data =urls.findOne({ slug: req.params.slug });
-        res.locals.data=data;
-        next();
-}
-
-
 router.get('/:slug?',async (req, res) => {
-
- function checkSlug(req, res, next) {
-        var data =urls.findOne({ slug: req.params.slug });
-        res.locals.data=data;
-        next();
-}
     if (req.params.slug != undefined) {
         var data = await urls.findOne({ slug: req.params.slug });
         res.locals.data=data;
@@ -175,7 +161,8 @@ router.get('/:slug?',async (req, res) => {
             res.render("index", { logged: false });
         }
     }
-})
+});
+
 router.post('/:slug?',checkSlug, async (req, res) => {
     const { password} = req.body;
    // const{data}=res.locals.data;
