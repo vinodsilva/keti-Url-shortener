@@ -18,10 +18,6 @@ function checkAuth(req, res, next) {
     }
 }
 
-function checkSlug(_req,_res,_next){
-
-}
-
 router.get('/login', (req, res) => {
     res.render("login", { csrfToken: req.csrfToken() });
 });
@@ -140,12 +136,11 @@ router.use(userRoutes);
 
 router.get('/:slug?',async (req, res) => {
     if (req.params.slug != undefined) {
-        var data = await urls.findOne({ slug: req.params.slug });
-        res.locals.data=data;
-        console.log(res.locals.data);
-        
+        var slugData=req.params.slug;
+        var data = await urls.findOne({ slug: slugData });
         if (data) {
-            res.render("veiwUrl", {csrfToken: req.csrfToken() });
+            res.render("veiwUrl", {slugData:slugData, csrfToken: req.csrfToken()});
+          
      }else{
         if (req.isAuthenticated()) {
             res.render("index", { logged: true });
@@ -163,17 +158,15 @@ router.get('/:slug?',async (req, res) => {
     }
 });
 
-router.post('/:slug?',checkSlug, async (req, res) => {
-    const { password} = req.body;
-   // const{data}=res.locals.data;
-    console.log(res.locals.data);
-
- if (!password ) {
-    res.render("veiwUrl", { err: "Password is Required !" });
+router.post('/:slug?',async (req, res) => {
+    const { password,slugData} = req.body;
+    var data = await urls.findOne({ slug:slugData });
+if (!password ) {
+     res.render("veiwUrl", {csrfToken: req.csrfToken(), err: "Password is Required !" });
 } 
  else {
-         if (data) {
-            data.visits = data.visits + 1;
+         if (password==data.password) {
+         data.visits = data.visits + 1;
            var ref = req.query.ref;
             if (ref) {
                 switch (ref) {
@@ -190,107 +183,17 @@ router.post('/:slug?',checkSlug, async (req, res) => {
             }
 
             await data.save();
-
-            res.redirect(data.originalUrl);
+          res.redirect(data.originalUrl);
         } else {
-            if (req.isAuthenticated()) {
-                res.render("index", { logged: true, err: true });
-            } else {
-                res.render("index", { logged: false, err: true });
+                res.render("veiwUrl", {csrfToken: req.csrfToken(), err: "Password is Required !" });
             }
 
         }
-
-
-    } 
+    
 
 });
 
 
-
-
-
-
-// router.get('/:slug?',async (req, res) => {
-//     var slug =req.params.slug;
-//     console.log(slug);
-//     if (req.params.slug != undefined) {
-//         var data = await urls.findOne({ slug: req.params.slug });
-//         if (data) {
-//             res.render("veiwUrl", { data:data, reset: true ,csrfToken: req.csrfToken() });
-//      }else{
-//         if (req.isAuthenticated()) {
-//             res.render("index", { logged: true });
-//         } else {
-//             res.render("index", { logged: false });
-//         } 
-//      }
-
-//     } else {
-//         if (req.isAuthenticated()) {
-//             res.render("index", { logged: true });
-//         } else {
-//             res.render("index", { logged: false });
-//         }
-//     }
-   
-
-// });
-
-// router.post('/:slug?', async (req, res) => {
-//     const { password,data } = req.body;
-//     console.log(password);
-//     console.log(data);
-// if (!password ) {
-//     res.render("veiwUrl", { err: "Password is Required !" });
-// } 
-//  else {
-//     if (req.params.slug != undefined) {
-//        // var data = await urls.findOne({ slug: req.params.slug });
-//         if (data) {
-//             data.visits = data.visits + 1;
-
-//             var ref = req.query.ref;
-//             if (ref) {
-//                 switch (ref) {
-//                     case 'fb':
-//                         data.visitsFB = data.visitsFB + 1;
-//                         break;
-//                     case 'ig':
-//                         data.visitsIG = data.visitsIG + 1;
-//                         break;
-//                     case 'yt':
-//                         data.visitsYT = data.visitsYT + 1;
-//                         break;
-//                 }
-//             }
-
-//             await data.save();
-
-//             res.redirect(data.originalUrl);
-//         } else {
-//             if (req.isAuthenticated()) {
-//                 res.render("index", { logged: true, err: true });
-//             } else {
-//                 res.render("index", { logged: false, err: true });
-//             }
-
-//         }
-
-
-//     } else {
-//         if (req.isAuthenticated()) {
-//             res.render("index", { logged: true });
-//         } else {
-//             res.render("index", { logged: false });
-//         }
-//     }
-//         }
-
-// });
-
-   
-    
 
 
 module.exports = router;
