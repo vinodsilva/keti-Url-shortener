@@ -32,7 +32,12 @@
   </head>
 
   <body>
-  
+    
+
+
+
+
+
     <div class="container">
       <h1 class="text-center p-3">Enter Your Access Code!</h1>
       <div
@@ -67,8 +72,8 @@
           <% } %>
 
         <form action="/slug" , method="POST">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <div class="mb-3">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" /> 
+           <div class="mb-3">
             <label for="password">Enter Your Password</label>
             <input
               type="password"
@@ -78,6 +83,13 @@
               autocomplete="off"
               placeholder="Password"
             />
+            <input
+            type="hidden"
+            class="form-control form-control-lg"
+            name="slugData"
+            id="slugData"
+            value="<%=slugData %>"
+          />
           </div>
           <div class="d-grid gap-3 mb-3">
             <input
