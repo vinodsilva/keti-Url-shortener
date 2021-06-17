@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" />
 
 
-  <title> Dashboard | KotaURL</title>
+  <title> Dashboard | KetiUrl</title>
 </head>
 <style>
   body {
@@ -27,17 +27,14 @@
   .bi {
     color: #0003FF;
   }
-
   .customborder {
             border-radius: 2%;
             border: 2px solid #E95420;
         }
-
         .card {
             border: none;
             border-radius: 25px;
         }
-
 </style>
 
 <body>
@@ -118,52 +115,53 @@
                                   <% } %>
                                     <% } %>
 
-                              <form action="/create" , method="POST">
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                                <div class="mb-3">
-                                  <label for="url">Enter Long Url</label>
-                                  <input
-                                    type="url"
-                                    class="form-control form-control-lg"
-                                    name="original"
-                                    id="url"
-                                    autocomplete="off"
-                                    placeholder="Original Long URL"
-                                  />
-                                </div>
-                                <div class="mb-3">
-                                  <label for="short">Your Short slug</label>
-                                  <input
-                                    type="text"
-                                    class="form-control form-control-lg"
-                                    name="short"
-                                    id="short"
-                                    autocomplete="off"
-                                    placeholder="short"
-                                  />
-                                </div>
-                                <div class="mb-3">
-                                  <label for="password">Enter Your Password</label>
-                                  <input
-                                    type="password"
-                                    class="form-control form-control-lg"
-                                    name="password"
-                                    id="password"
-                                    autocomplete="off"
-                                    placeholder="Password"
-                                  />
-                                </div>
-                                <div class="d-grid gap-3 mb-3">
-                                  <input
-                                    type="submit"
-                                    class="btn btn-lg btn-block btn-outline-primary"
-                                    value="Create Url"
-                                  />
-                                 
-                                </div>
-                               
-                               
-                              </form>
+                             
+                                    <form action="/create" , method="POST">
+                                      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                      <div class="mb-3">
+                                        <label for="url">Enter Long Url</label>
+                                        <input
+                                          type="url"
+                                          class="form-control form-control-lg"
+                                          name="original"
+                                          id="url"
+                                          autocomplete="off"
+                                          placeholder="Original Long URL"
+                                        />
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="short">Your Short slug</label>
+                                        <input
+                                          type="text"
+                                          class="form-control form-control-lg"
+                                          name="short"
+                                          id="short"
+                                          autocomplete="off"
+                                          placeholder="short"
+                                        />
+                                      </div>
+                                      <div class="mb-3">
+                                        <label for="password">Enter Your Password</label>
+                                        <input
+                                          type="password"
+                                          class="form-control form-control-lg"
+                                          name="password"
+                                          id="password"
+                                          autocomplete="off"
+                                          placeholder="Password"
+                                        />
+                                      </div>
+                                      <div class="d-grid gap-3 mb-3">
+                                        <input
+                                          type="submit"
+                                          class="btn btn-lg btn-block btn-outline-primary"
+                                          value="Create Url"
+                                        />
+                                       
+                                      </div>
+                                     
+                                     
+                                    </form>
 
                             </div>
 
@@ -183,12 +181,10 @@
       <div class="row row-cols-1 g-4 text-center">
         
         <% if(urls.length != 0){ %>
-
           <% urls.forEach((url) => { %>
               <div class="col">
                 <div class="container shadow rounded-3 bg-light p-4">
                   <div class="container row justify-content-around">
-
                     <div class="col-12 col-md-4 col-lg-3  mb-3">
                         <div class="card customcard  ratio ratio-1x1 shadow">
                             <div class="d-flex flex-column justify-content-center align-item-center">
@@ -202,9 +198,45 @@
                             </div>
                         </div>
                     </div>
-               
-  
-
+                    <div class="col-12 col-md-4 col-lg-3  mb-3">
+                        <div class="card customcard  ratio ratio-1x1 shadow">
+                            <div class="d-flex flex-column justify-content-center align-item-center">
+                                <p>
+                                    Facebook <br />
+                                    Visits
+                                </p>
+                                <h2>
+                                    <%= url['visitsFB'] %>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-3  mb-3">
+                        <div class="card customcard  ratio ratio-1x1 shadow">
+                            <div class="d-flex flex-column justify-content-center align-item-center">
+                                <p>
+                                    Instagram <br />
+                                    Visits
+                                </p>
+                                <h2>
+                                    <%= url['visitsIG'] %>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-3  mb-3">
+                        <div class="card customcard  ratio ratio-1x1 shadow">
+                            <div class="d-flex flex-column justify-content-center align-item-center">
+                                <p>
+                                    Youtube <br />
+                                    Visits
+                                </p>
+                                <h2>
+                                    <%= url['visitsYT'] %>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
              
@@ -214,13 +246,11 @@
                     <canvas id="<%= url['_id'] %>" width="400" height="400"></canvas>
                   </div>
                 </div>
-                <h2>"https://keti.ml/<%= url['slug'] %>"</h2>
-                <a href="https://keti.ml/<%= url['slug'] %>" class="btn btn-primary mt-4">Visit Short Url</a>
+                <a href="http://localhost:8000/<%= url['slug'] %>" class="btn btn-primary mt-4">Visit Short Url</a>
                 
               </div>
               </div>
                 <% }) %>
-
         <%  }else{ %>
         <h2>No Urls created By You 😔😔</h2>
         <% } %>
@@ -241,10 +271,8 @@
     
     <script>
   <% if(urls.length != 0){ %>
-
 <% urls.forEach((url) => { %>
       var ct = document.getElementById('<%= url["_id"] %>').getContext('2d');
-
       var myChart = new Chart(ct, {
         type : 'doughnut',
         data : {
@@ -261,7 +289,6 @@
           }]
         }
       });
-
   <%  }) %>
   <%  } %>
    

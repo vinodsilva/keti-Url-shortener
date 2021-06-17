@@ -12,6 +12,7 @@ const urlSchema = new mongoose.Schema({
 
     password : {
         type : String,   
+        required : true,
     },
     
     slug : {
