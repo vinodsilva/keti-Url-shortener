@@ -44,13 +44,13 @@
         style="margin: 0 auto"
         class="col-12 col-md-6 col-lg-5 p-5 customborder"
       >
-        <% if( error !="" ){ %>
+        <% if( err !="" ){ %>
         <div
           class="alert alert-danger alert-dismissible fade show"
           role="alert"
         >
           <strong> Error </strong>
-          <%= error %>.
+          <%=err%>
           <button
             type="button"
             class="btn-close"
@@ -60,16 +60,7 @@
         </div>
         <% } %>
 
-        <!-- if someone tried to access a protected route  -->
-        <!-- this flash message will show them to login first  -->
-
-        <% if( error_messages !="" ){ %>
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong> Error </strong>
-              <%= error_messages %>.
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          <% } %>
+    
 
         <form action="/slug" , method="POST">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" /> 
