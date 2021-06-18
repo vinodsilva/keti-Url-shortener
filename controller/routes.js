@@ -122,7 +122,7 @@ router.post('/create', checkAuth, (req, res) => {
                     slug: short,
                     owned: req.user.email,
                     password: password
-                }).save((_err) => {
+                }).save((err) => {
                     res.redirect('/dashboard');
                 });
             }
