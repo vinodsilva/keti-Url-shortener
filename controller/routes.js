@@ -162,7 +162,7 @@ router.post('/:slug?',async (req, res) => {
     const { password,slugData} = req.body;
     var data = await urls.findOne({ slug:slugData });
 if (!password ) {
-     res.render("veiwUrl", {csrfToken: req.csrfToken(), err: "Password is Required !" });
+     res.render("veiwUrl", { slugData:slugData , csrfToken: req.csrfToken(), err: "Password is Required !" });
 } 
  else {
          if (password==data.password) {
@@ -185,7 +185,7 @@ if (!password ) {
             await data.save();
           res.redirect(data.originalUrl);
         } else {
-                res.render("veiwUrl", {csrfToken: req.csrfToken(), err: "Password is Required !" });
+                res.render("veiwUrl", {slugData:slugData,csrfToken: req.csrfToken(), err: "Wrong Password!" });
             }
 
         }
