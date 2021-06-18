@@ -139,7 +139,7 @@ router.get('/:slug?',async (req, res) => {
         var slugData=req.params.slug;
         var data = await urls.findOne({ slug: slugData });
         if (data) {
-            res.render("veiwUrl", {slugData:slugData, csrfToken: req.csrfToken()});
+            res.render("veiwUrl", {slugData:slugData, csrfToken: req.csrfToken(),err: ""});
           
      }else{
         if (req.isAuthenticated()) {
