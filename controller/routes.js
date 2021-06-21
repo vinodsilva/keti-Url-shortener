@@ -26,6 +26,10 @@ router.get('/signup', (req, res) => {
     res.render("signup", { csrfToken: req.csrfToken() });
 });
 
+router.get('/faq', (req, res) => {
+    res.render("faq", { csrfToken: req.csrfToken() });
+});
+
 router.post('/signup', (req, res) => {
     // get all the values 
     const { email, password, confirmpassword } = req.body;

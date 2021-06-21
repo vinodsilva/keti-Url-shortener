@@ -1,163 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Font  -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Recursive:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
-    />
 
-    <title>KetiURL</title>
-  </head>
-  <style>
-      body {
-        font-family: "Recursive", sans-serif;
-        font-size: larger;
-      }
-    .bi {
-      color: #0003ff;
-    }
-  </style>
+<!-- Mirrored from pixner.net/cortaly/main/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Jun 2021 17:40:55 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <body>
-    <!-- navbar  -->
-    <nav class="navbar navbar-expand-lg navbar-light p-4">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img
-            src="/static/images/logo.png"
-            width="150"
-            height="36"
-            alt="Logo"
-          />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <% if(logged){ %>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <% }else{ %>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/signup">Signup</a>
-            </li>
-            <% } %>
-            <li class="nav-item">
-              <a class="nav-link" href="#features">Features</a>
-            </li>
-          </ul>
+    <title>Cortaly - URL Shortner HTML Template</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/owl.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!--============= ScrollToTop Section Starts Here =============-->
+    <div class="overlayer" id="overlayer">
+        <div class="loader">
+            <div class="loader-inner"></div>
         </div>
-      </div>
-    </nav>
-    <!-- navbar end  -->
-
-    <div class="container py-3">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-10 col-md-6 text-center">
-          <% if(typeof err !='undefined' ){ %> <% if(err){ %>
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>ERROR </strong>
-            Can't find the Short Url .
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="alert"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <% } %> <% } %>
-
-          <img
-            src="/static/images/link_shorter.png"
-            class="img-fluid"
-            alt="Banner"
-          />
-          <h1>Shorten Any URL</h1>
-          <h2>And Get deep Analytics from them !</h2>
-
-          <a class="btn btn-lg btn-primary mt-5" href="/dashboard">Start Creating Now</a>
-        </div>
-      </div>
     </div>
+    <a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+    <div class="overlay"></div>
+    <!--============= ScrollToTop Section Ends Here =============-->
 
-    <div id="features" class="container p-5">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center g-3">
-          <div class="col">
-              <div class="card text-center h-100" >
-                  <i style="font-size: 3em;" class="bi bi-bar-chart-line"></i>
-                  <div class="card-body">
-                    <h3 class="card-title">Inspire trust</h3>
-                    <p class="card-text">With more clicks comes increased brand recognition and consumer trust in your communications—which in turn inspires even more engagement with your links. (It’s a wonderful cycle.).</p>
-                  
-                  </div>
-                </div>
-          </div>
-          <div class="col">
-              <div class="card text-center h-100" >
-                  <i style="font-size: 3em;" class="bi bi-cpu"></i>
-                  <div class="card-body">
-                    <h3 class="card-title">Boost results</h3>
-                    <p class="card-text">On top of better deliverability and click-through, rich link-level data gives you crucial insight into your link engagement so your team can make smarter decisions around its content and communications.</p>
-                  
-                  </div>
-                </div>
-          </div>
-          <div class="col">
-              <div class="card text-center h-100" >
-                  <i  style="font-size: 3em;" class="bi bi-megaphone"></i>
-                  <div class="card-body">
-                    <h3 class="card-title">Gain control</h3>
-                    <p class="card-text">Take credit for your content and learn more about how it’s consumed by enabling auto-branding—a feature that ensures your brand remains in any link someone shortens pointing to your website.</p>
-                  
-                  </div>
-                </div>
-          </div>
-      </div>
-  </div>
 
-    <%- include('./partials/footer.ejs'); %>
+    <!--============= Header Section Starts Here =============-->
+    <header class="header-section">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="logo">
+                    <a href="/index">
+                        <img src="assets/images/logo/logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a href="/index">Home</a>
+                    </li>
+                    <li>
+                        <a href="/faq">Faq</a>
+                    </li>
+                    <li class="d-sm-none text-center">
+                        <a href="/login" class="header-button active">Login</a>
+                    </li>
+                    <li class="d-sm-none text-center">
+                        <a href="/signup" class="mb-4 header-button">Register</a>
+                    </li>
+                </ul>
+                <div class="header-bar d-lg-none mr-sm-3">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="header-right">
+                    <a href="/login" class="header-button d-none d-sm-inline-block m-0 active">Login</a>
+                    <a href="/signup" class="header-button d-none d-sm-inline-block m-0">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--============= Header Section Ends Here =============-->
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+
+    <!--============= Banner Section Starts Here =============-->
+    <section class="banner-section">
+        <div class="banner-bg bg_img" data-background="assets/images/banner/banner-bg.jpg">
+            <div class="banner-bg-shape"><img src="assets/images/banner/banner-shape.png" alt="banner"></div>
+            <div class="round-1">
+                <img src="assets/images/banner/01.png" alt="banner">
+            </div>
+            <div class="round-2">
+                <img src="assets/images/banner/02.png" alt="banner">
+            </div>
+        </div>
+        <div class="container">
+            <div class="banner-content">
+                <h3 class="cate">SHORTEN URLS AND</h3>
+                <h1 class="title">Earn Money</h1>
+                <p>Transforming long, ugly links into Shorten URLs and earn big money. Get paid by every person who visits your URLs.</p>
+            </div>
+            <div class="banner-form-group">
+                <h3 class="subtitle">Shorten URL Is Just Simple</h3>
+                <div class="banner-counter">
+                    <div class="counter-item">
+                        <h2 class="counter-title"><span class="counter">1,200,000</span>+</h2>
+                        <p>Links clicked per day</p>
+                    </div>
+                    <div class="counter-item">
+                        <h2 class="counter-title"><span class="counter">348,000,000</span>+</h2>
+                        <p>Shortened links in total</p>
+                    </div>
+                    <div class="counter-item">
+                        <h2 class="counter-title"><span class="counter">1,180,000</span>+</h2>
+                        <p>Happy users registered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= Banner Section Ends Here =============-->
+
+
+    <!--============= Why Section Starts Here =============-->
+    <section class="why-section padding-bottom padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mt-lg-100">
+                    <div class="section-header left-style mb-lg-0 sticky-header mb-low ml-0">
+                        <h2 class="title">
+                            Why Join Us?
+                        </h2>
+                        <p>Cortaly is a completely free tool where you can create short links, which apart from being free, you get paid! So, now you can make money from home, when managing and protecting your links.</p>
+                        <a href="/signup" class="custom-button active mt-2">Create Your Account</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="choose-item">
+                        <div class="choose-thumb">
+                            <img src="assets/images/why/01.png" alt="why">
+                        </div>
+                        <div class="choose-content">
+                            <h5 class="title">JOIN OUR NETWORK</h5>
+                            <p>Signup for an account in just one minute, shorten URLs and 
+                                sharing your links to everywhere. And you'll be paid from any views.</p>
+                        </div>
+                    </div>
+                    <div class="choose-item">
+                        <div class="choose-thumb">
+                            <img src="assets/images/why/02.png" alt="why">
+                        </div>
+                        <div class="choose-content">
+                            <h5 class="title">HIGHEST RATES</h5>
+                            <p>Make the most out of your traffic with our always increasing rates. You are required to earn only $5.00 before you will be paid.</p>
+                        </div>
+                    </div>
+                    <div class="choose-item">
+                        <div class="choose-thumb">
+                            <img src="assets/images/why/03.png" alt="why">
+                        </div>
+                        <div class="choose-content">
+                            <h5 class="title">PAYMENTS ON TIME</h5>
+                            <p>We provide full mobile supports, you can even shorten the URL, control your account and view the stats on a mobile device.</p>
+                        </div>
+                    </div>
+                    <div class="choose-item">
+                        <div class="choose-thumb">
+                            <img src="assets/images/why/04.png" alt="why">
+                        </div>
+                        <div class="choose-content">
+                            <h5 class="title">RESPONSIVE UI</h5>
+                            <p>Request payments whenever you want and get your payments on 1st day and 15th day of every month. Enjoy you Spendings!!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= Why Section Ends Here =============-->
+
+
+    <!--============= Feature Section Starts Here =============-->
+    <section class="feature-section padding-top oh padding-bottom pb-lg-half bg_img pos-rel" data-background="assets/images/feature/feature-bg.jpg">
+        <div class="top-shape d-none d-md-block">
+            <img src="assets/css/img/top-shape.png" alt="css">
+        </div>
+        <div class="bottom-shape d-none d-md-block mw-0">
+            <img src="assets/css/img/bottom-shape.png" alt="css">
+        </div>
+        <div class="ball-2" data-paroller-factor="-0.30" data-paroller-factor-lg="0.60"
+        data-paroller-type="foreground" data-paroller-direction="horizontal">
+            <img src="assets/images/balls/1.png" alt="balls">
+        </div>
+        <div class="ball-3" data-paroller-factor="0.30" data-paroller-factor-lg="-0.30"
+        data-paroller-type="foreground" data-paroller-direction="horizontal">
+            <img src="assets/images/balls/2.png" alt="balls">
+        </div>
+        <div class="ball-4" data-paroller-factor="0.30" data-paroller-factor-lg="-0.30"
+        data-paroller-type="foreground" data-paroller-direction="horizontal">
+            <img src="assets/images/balls/3.png" alt="balls">
+        </div>
+        <div class="ball-5" data-paroller-factor="0.30" data-paroller-factor-lg="-0.30"
+        data-paroller-type="foreground" data-paroller-direction="vertical">
+            <img src="assets/images/balls/4.png" alt="balls">
+        </div>
+        <div class="ball-6" data-paroller-factor="-0.30" data-paroller-factor-lg="0.60"
+        data-paroller-type="foreground" data-paroller-direction="horizontal">
+            <img src="assets/images/balls/5.png" alt="balls">
+        </div>
+        <div class="ball-7" data-paroller-factor="-0.30" data-paroller-factor-lg="0.60"
+        data-paroller-type="foreground" data-paroller-direction="vertical">
+            <img src="assets/images/balls/6.png" alt="balls">
+        </div>
+        <div class="container">
+            <div class="section-header cl-white">
+                <!-- <h5 class="cate">Choose a plan that's right for you</h5> -->
+                <h2 class="title mt-md-0">All Features</h2>
+                <p>
+                    Mosto has plans, from free to paid, that scale with your needs. Subscribe to a plan that fits the size of your business.
+                </p>
+            </div>
+            <div class="tab">
+                <ul class="tab-menu feature-tab">
+                    <li>
+                        <div class="thumb">
+                            <img src="assets/images/feature/01.png" alt="feature">
+                        </div>
+                        <div class="content">%99 Uptime</div>
+                    </li>
+                    <li>
+                        <div class="thumb">
+                            <img src="assets/images/feature/02.png" alt="feature">
+                        </div>
+                        <div class="content">Easy Dashboard</div>
+                    </li>
+                    <li>
+                        <div class="thumb">
+                            <img src="assets/images/feature/03.png" alt="feature">
+                        </div>
+                        <div class="content"> Referral Program</div>
+                    </li>
+                    <li>
+                        <div class="thumb">
+                            <img src="assets/images/feature/04.png" alt="feature">
+                        </div>
+                        <div class="content">1CLICK Script Installs</div>
+                    </li>
+                    <li>
+                        <div class="thumb">
+                            <img src="assets/images/feature/05.png" alt="feature">
+                        </div>
+                        <div class="content">Support</div>
+                    </li>
+                </ul>
+                <div class="tab-area">
+                    <div class="tab-item active">
+                        <div class="feature-item">
+                            <h3 class="title"> %99 Uptime</h3>
+                            <p>We guarantee that our network will be up and functioning 99.9% of the time per 
+                            month. We feel a safety net of .1% each month allows us time for repairs and 
+                            unforeseen events that may arise. Furthermore, you can view our network status
+                                24 hours a day 365 days a year.</p>
+                        </div>
+                    </div>
+                    <div class="tab-item">
+                        <div class="feature-item">
+                            <h3 class="title">Easy Dashboard</h3>
+                            <p>We guarantee that our network will be up and functioning 99.9% of the time per 
+                            month. We feel a safety net of .1% each month allows us time for repairs and 
+                            unforeseen events that may arise. Furthermore, you can view our network status
+                                24 hours a day 365 days a year.</p>
+                        </div>
+                    </div>
+                    <div class="tab-item">
+                        <div class="feature-item">
+                            <h3 class="title">Referral Program</h3>
+                            <p>We guarantee that our network will be up and functioning 99.9% of the time per 
+                            month. We feel a safety net of .1% each month allows us time for repairs and 
+                            unforeseen events that may arise. Furthermore, you can view our network status
+                                24 hours a day 365 days a year.</p>
+                        </div>
+                    </div>
+                    <div class="tab-item">
+                        <div class="feature-item">
+                            <h3 class="title">1CLICK Script Installs</h3>
+                            <p>We guarantee that our network will be up and functioning 99.9% of the time per 
+                            month. We feel a safety net of .1% each month allows us time for repairs and 
+                            unforeseen events that may arise. Furthermore, you can view our network status
+                                24 hours a day 365 days a year.</p>
+                        </div>
+                    </div>
+                    <div class="tab-item">
+                        <div class="feature-item">
+                            <h3 class="title">Support</h3>
+                            <p>We guarantee that our network will be up and functioning 99.9% of the time per 
+                            month. We feel a safety net of .1% each month allows us time for repairs and 
+                            unforeseen events that may arise. Furthermore, you can view our network status
+                                24 hours a day 365 days a year.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= Feature Section Ends Here =============-->
+
+
+    <!--============= How Section Starts Here =============-->
+    <section class="how-section padding-top padding-bottom pt-md-half pb-max-lg-0">
+        <div class="container">
+            <div class="section-header mb-low">
+                <h2 class="title mb-0">How to start</h2>
+            </div>
+            <div class="row justify-content-center mb--40">
+                <div class="col-lg-4 col-md-6 col-sm-10">
+                    <div class="how-item">
+                        <div class="how-thumb">
+                            <img src="assets/images/how/how1.png" alt="how">
+                        </div>
+                        <div class="how-content">
+                            <h6 class="title">CREATE AN ACCOUNT</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10">
+                    <div class="how-item">
+                        <div class="how-thumb">
+                            <img src="assets/images/how/how2.png" alt="how">
+                        </div>
+                        <div class="how-content">
+                            <h6 class="title">SHORTEN YOUR LINK</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10">
+                    <div class="how-item">
+                        <div class="how-thumb">
+                            <img src="assets/images/how/how3.png" alt="how">
+                        </div>
+                        <div class="how-content">
+                            <h6 class="title">Earn Money</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= How Section Ends Here =============-->
+
+
+   
+
+    <!--============= Call In Action Section Starts Here =============-->
+    <section class="call-in-action padding-top padding-bottom section-bg text-center">
+        <div class="container">
+            <div class="section-header mb-low">
+                <h5 class="cate">JOIN US NOW</h5>
+                <h2 class="title">Boost Your Earnings</h2>
+                <p>Sign up for free and become one of the millions of people around the world
+                    who have fallen in love with Cortaly</p>
+            </div>
+            <a href="#0" class="custom-button">Start earning now!</a>
+        </div>
+    </section>
+    <!--============= Call In Action Section Ends Here =============-->
+
+
+    <!--============= Footer Section Starts Here =============-->
+    <footer class="footer-section padding-top">
+        <div class="footer-bg bg_img" data-background="assets/images/footer/footer-bg.jpg"></div>
+        <div class="footer-bg d-md-block d-none"><img src="assets/images/footer/wave.png" alt="footer"></div>
+        <div class="container">
+            <div class="section-header cl-white-499">
+                <h5 class="cate">Contact Us</h5>
+                <h2 class="title">Get in touch!</h2>
+                <p>We thrive to ensure that you get the most out of your experience</p>
+            </div>
+            <form class="contact-form" id="contact_form_submit">
+                <div class="form-group">
+                    <label for="name">Your Full Name</label>
+                    <input type="text" name="name" id="name" placeholder="Enter Your Full Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="text" name="email" id="email" placeholder="Enter Your Email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" placeholder="Enter Your Message"></textarea>
+                </div>
+                <div class="form-group check-group">
+                    <input type="checkbox" id="check" required>
+                    <label for="check">I agree to receive emails, newsletters and promotional messages</label>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+            <div class="footer-top">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="assets/images/logo/footer-logo.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="links">
+                    <li>
+                        <a href="#0"><img src="assets/images/footer/neteller.png" alt="footer"></a>
+                    </li>
+                    <li>
+                        <a href="#0"><img src="assets/images/footer/skrill.png" alt="footer"></a>
+                    </li>
+                    <li>
+                        <a href="#0"><img src="assets/images/footer/paypal.png" alt="footer"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-area">
+                    <div class="left cl-white">
+                        <p>&copy; Copyright 2021 | <a href="/index">KetiURL</a> By Vlabs</p>
+                    </div>
+                    <ul class="social-icons">
+                        <li>
+                            <a href="#0" class="active">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0" class="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0" class="">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0" class="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--============= Footer Section Ends Here =============-->
+
+
+
+
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/waypoints.js"></script>
+    <script src="assets/js/nice-select.js"></script>
+    <script src="assets/js/counterup.min.js"></script>
+    <script src="assets/js/owl.min.js"></script>
+    <script src="assets/js/magnific-popup.min.js"></script>
+    <script src="assets/js/paroller.js"></script>
+    <script src="assets/js/contact.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+
+<!-- Mirrored from pixner.net/cortaly/main/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 20 Jun 2021 17:41:47 GMT -->
 </html>

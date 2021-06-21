@@ -11,8 +11,10 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views',);
+app.set('assets', __dirname + '/views/assets',);
 
 app.use('/static', express.static(__dirname + '/static'));
+app.use('/assets', express.static(__dirname + '/views/assets'));
 
 app.use(express.urlencoded({ extended: true }));
 
