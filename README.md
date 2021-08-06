@@ -23,7 +23,7 @@ Password Protected Custom URL shortening service
     - module.exports = "< Your mongodb key >";
   
      
- # ScreenShots
+ # Screenshots
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/66962737/128461108-986baad1-b0a6-47c5-bb38-7577d17e498d.png" width="350" >
